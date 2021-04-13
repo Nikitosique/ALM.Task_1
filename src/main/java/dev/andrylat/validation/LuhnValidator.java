@@ -1,14 +1,15 @@
-package dev.andrylat.cardchecker;
+package dev.andrylat.validation;
 
 import org.junit.platform.commons.util.StringUtils;
 
-public class LuhnChecker implements CardChecker {
+public class LuhnValidator implements CardValidator {
+
+    public static final String ERROR_MESSAGE = "-> Control sum is invalid\n";
 
     @Override
-    public boolean check(String cardNumber) {
-
+    public String validate(String cardNumber) {
         if (StringUtils.isBlank(cardNumber)) {
-            return false;
+            return ERROR_MESSAGE;
         }
 
         int[] cardNumberArray = new int[cardNumber.length()];
@@ -27,9 +28,9 @@ public class LuhnChecker implements CardChecker {
             }
         }
         if (controlSum % 10 == 0) {
-            return true;
+            return "";
         }
-        return false;
+        return ERROR_MESSAGE;
     }
 
 }
