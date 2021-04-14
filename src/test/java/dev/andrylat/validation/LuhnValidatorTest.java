@@ -3,7 +3,8 @@ package dev.andrylat.validation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LuhnValidatorTest {
     LuhnValidator luhnChecker;
@@ -14,67 +15,59 @@ class LuhnValidatorTest {
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsNull() {
+    public void validate_ReturnFalse_CardNumberIsNull() {
         String cardNumber = null;
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsEmpty() {
+    public void validate_ReturnFalse_CardNumberIsEmpty() {
         String cardNumber = "";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsWhitespaces() {
+    public void validate_ReturnFalse_CardNumberIsWhitespaces() {
         String cardNumber = "       ";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsOneDigit() {
+    public void validate_ReturnFalse_CardNumberIsOneDigit() {
         String cardNumber = "1";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsOneNonDigit() {
+    public void validate_ReturnFalse_CardNumberIsOneNonDigit() {
         String cardNumber = "a";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsDigitsAndNonDigits() {
+    public void validate_ReturnFalse_CardNumberIsDigitsAndNonDigits() {
         String cardNumber = "1234567abcd87654";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
-    public void validate_ReturnError_CardNumberIsDigitsWithInvalidControlSum() {
+    public void validate_ReturnFalse_CardNumberIsDigitsWithInvalidControlSum() {
         String cardNumber = "1234567890987654321";
-        String expected = "-> Control sum is invalid\n";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertFalse(actual);
     }
 
     @Test
     public void validate_ReturnTrue_CardNumberIsDigitsWithValidControlSum() {
         String cardNumber = "5457623898234113";
-        String expected = "";
-        String actual = luhnChecker.validate(cardNumber);
-        assertEquals(expected, actual);
+        boolean actual = luhnChecker.validate(cardNumber);
+        assertTrue(actual);
     }
 
 }

@@ -1,5 +1,7 @@
 package dev.andrylat.validation;
 
 public interface CardValidator {
-    String validate(String cardNumber);
+    boolean validate(String cardNumber);
+
+    String getValidationError();
 }

@@ -15,71 +15,17 @@ class PaymentSystemCheckerTest {
     }
 
     @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsNull() {
-        String cardNumber = null;
-        String expected = "Unknown payment system";
+    public void checkPaymentSystem_ReturnUnknown_PaymentSystemNotDetermined() {
+        String cardNumber = "0000000000000000";
+        String expected = "Card number is invalid.\n" +
+                "Errors:\n" +
+                "-> Payment System can't be determined";
         String actual = checker.checkPaymentSystem(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsEmpty() {
-        String cardNumber = "";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsOnlyWhitespaces() {
-        String cardNumber = "                             ";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsOneDigit() {
-        String cardNumber = "1";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsNonDigits() {
-        String cardNumber = "aaa";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsDigitsAndWhitespaces() {
-        String cardNumber = "  1            1";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_CardNumberIsDigitsAndNonDigits() {
-        String cardNumber = "1234abc5678abcd";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnError_ControlSumIsInvalid() {
-        String cardNumber = "4000000000000000";
-        String expected = "Unknown payment system";
-        String actual = checker.checkPaymentSystem(cardNumber);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void checkPaymentSystem_ReturnVisa_CardIsValid() {
+    public void checkPaymentSystem_ReturnVisa_CardIsVisa() {
         String cardNumber = "4444444444444448";
         String expected = "Card is valid. Payment system is VISA";
         String actual = checker.checkPaymentSystem(cardNumber);

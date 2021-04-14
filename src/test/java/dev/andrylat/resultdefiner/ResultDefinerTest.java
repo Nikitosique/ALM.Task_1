@@ -1,20 +1,21 @@
-package dev.andrylat.validation;
+package dev.andrylat.resultdefiner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ValidationErrorsHandlerTest {
-    ValidationErrorsHandler errors;
+class ResultDefinerTest {
+
+    ResultDefiner definer;
 
     @BeforeEach
-    void createValidationErrors() {
-        errors = new ValidationErrorsHandler();
+    void createDefiner() {
+        definer = new ResultDefiner();
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsNull() {
+    public void defineResult_ReturnErrors_CardNumberIsNull() {
         String cardNumber = null;
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
@@ -22,12 +23,12 @@ class ValidationErrorsHandlerTest {
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsEmpty() {
+    public void defineResult_ReturnErrors_CardNumberIsEmpty() {
         String cardNumber = "";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
@@ -35,12 +36,12 @@ class ValidationErrorsHandlerTest {
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsWhitespaces() {
+    public void defineResult_ReturnErrors_CardNumberIsWhitespaces() {
         String cardNumber = "                ";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
@@ -48,24 +49,24 @@ class ValidationErrorsHandlerTest {
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsOneDigit() {
+    public void defineResult_ReturnErrors_CardNumberIsOneDigit() {
         String cardNumber = "1";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsOneNonDigit() {
+    public void defineResult_ReturnErrors_CardNumberIsOneNonDigit() {
         String cardNumber = "a";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
@@ -73,44 +74,50 @@ class ValidationErrorsHandlerTest {
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsDigitsAndWhitespaces() {
-        String cardNumber = "1            1";
+    public void defineResult_ReturnErrors_CardNumberIsDigitsAndNonDigits() {
+        String cardNumber = "1234567abcd87654";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
                 "-> Card number should contain only digits\n" +
                 "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_CardNumberIsDigitsAndNonDigits() {
-        String cardNumber = "987qwe.!?abc654";
+    public void defineResult_ReturnErrors_CardNumberIsDigitsWithInvalidControlSum() {
+        String cardNumber = "4567890987654321";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> Card number should contain only digits\n" +
-                "-> Card number's length should be 16 digits\n" +
                 "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void getErrorMessage_ReturnMessages_ControlSumIsInvalid() {
-        String cardNumber = "4000000000000000";
+    public void defineResult_ReturnErrors_PaymentSystemNotDetermined() {
+        String cardNumber = "0000000000000000";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> Control sum is invalid\n" +
                 "-> Payment System can't be determined";
-        String actual = errors.getErrorMessage(cardNumber);
+        String actual = definer.defineResult(cardNumber);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void defineResult_ReturnVisa_CardIsVisa() {
+        String cardNumber = "4444444444444448";
+        String expected = "Card is valid. Payment system is VISA";
+        String actual = definer.defineResult(cardNumber);
+        assertEquals(expected, actual);
+    }
+
 }

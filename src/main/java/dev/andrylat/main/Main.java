@@ -1,6 +1,6 @@
 package dev.andrylat.main;
 
-import dev.andrylat.printer.ResultPrinter;
+import dev.andrylat.resultdefiner.ResultDefiner;
 
 import java.util.Scanner;
 
@@ -10,8 +10,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! Enter card number for validation:");
         String cardNumber = scanner.nextLine();
-        ResultPrinter printer = new ResultPrinter();
-        printer.printResult(cardNumber);
+        ResultDefiner definer = new ResultDefiner();
+        System.out.println(definer.defineResult(cardNumber));
     }
+
 }
 

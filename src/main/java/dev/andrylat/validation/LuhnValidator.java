@@ -4,12 +4,12 @@ import org.junit.platform.commons.util.StringUtils;
 
 public class LuhnValidator implements CardValidator {
 
-    public static final String ERROR_MESSAGE = "-> Control sum is invalid\n";
+    private static final String VALIDATION_ERROR = "-> Control sum is invalid\n";
 
     @Override
-    public String validate(String cardNumber) {
+    public boolean validate(String cardNumber) {
         if (StringUtils.isBlank(cardNumber)) {
-            return ERROR_MESSAGE;
+            return false;
         }
 
         int[] cardNumberArray = new int[cardNumber.length()];
@@ -27,10 +27,12 @@ public class LuhnValidator implements CardValidator {
                 controlSum = controlSum + cardNumberArray[i];
             }
         }
-        if (controlSum % 10 == 0) {
-            return "";
-        }
-        return ERROR_MESSAGE;
+        return controlSum % 10 == 0;
+    }
+
+    @Override
+    public String getValidationError() {
+        return VALIDATION_ERROR;
     }
 
 }

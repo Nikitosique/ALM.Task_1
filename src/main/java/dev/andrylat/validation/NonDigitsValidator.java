@@ -4,17 +4,18 @@ import org.junit.platform.commons.util.StringUtils;
 
 public class NonDigitsValidator implements CardValidator {
 
-    public static final String REGEX = "[\\d]+";
-    public static final String ERROR_MESSAGE = "-> Card number should contain only digits\n";
+    private static final String DIGITS_REGEX = "[\\d]+";
+    private static final String VALIDATION_ERROR = "-> Card number should contain only digits\n";
 
     @Override
-    public String validate(String cardNumber) {
+    public boolean validate(String cardNumber) {
         if (StringUtils.isBlank(cardNumber)) {
-            return ERROR_MESSAGE;
+            return false;
         }
+        return cardNumber.matches(DIGITS_REGEX);
+    }
 
-        if (cardNumber.matches(REGEX)) {
-            return "";
-        } else return ERROR_MESSAGE;
+    public String getValidationError() {
+        return VALIDATION_ERROR;
     }
 }
