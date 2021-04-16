@@ -1,15 +1,21 @@
-package dev.andrylat.validation;
+package dev.andrylat.banking.validation;
 
 import org.junit.platform.commons.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LuhnValidator implements CardValidator {
 
-    private static final String VALIDATION_ERROR = "-> Control sum is invalid\n";
+    private static final String MESSAGE = "Control sum is invalid";
 
     @Override
-    public boolean validate(String cardNumber) {
+    public List<String> validate(String cardNumber) {
+        List<String> failureMessage = new ArrayList<>();
+
         if (StringUtils.isBlank(cardNumber)) {
-            return false;
+            failureMessage.add(MESSAGE);
+            return failureMessage;
         }
 
         int[] cardNumberArray = new int[cardNumber.length()];
@@ -27,12 +33,12 @@ public class LuhnValidator implements CardValidator {
                 controlSum = controlSum + cardNumberArray[i];
             }
         }
-        return controlSum % 10 == 0;
-    }
+        if (controlSum % 10 != 0) {
+            failureMessage.add(MESSAGE);
+            return failureMessage;
+        }
 
-    @Override
-    public String getValidationError() {
-        return VALIDATION_ERROR;
+        return failureMessage;
     }
 
 }
