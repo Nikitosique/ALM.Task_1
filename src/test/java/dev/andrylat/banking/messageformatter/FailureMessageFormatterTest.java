@@ -22,10 +22,8 @@ class FailureMessageFormatterTest {
         List<String> inputMessages = new ArrayList<>();
         inputMessages.add("Control sum is invalid");
         String expected = "Card number is invalid.\n" +
-                "Errors:\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n";
+                "Errors:\n" + "-> " +
+                "Control sum is invalid\n";
         String actual = formatter.formatMessage(inputMessages);
         assertEquals(expected, actual);
     }
@@ -37,12 +35,8 @@ class FailureMessageFormatterTest {
         inputMessages.add("Card number's length should be 16 digits");
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n";
+                "-> Control sum is invalid\n" +
+                "-> Card number's length should be 16 digits\n";
         String actual = formatter.formatMessage(inputMessages);
         assertEquals(expected, actual);
     }
@@ -56,18 +50,10 @@ class FailureMessageFormatterTest {
         inputMessages.add("Payment system cant be determined");
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Control sum is invalid\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Card number should contain only digits\n" +
+                "-> Payment system cant be determined\n";
         String actual = formatter.formatMessage(inputMessages);
         assertEquals(expected, actual);
     }

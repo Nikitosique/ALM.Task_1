@@ -1,17 +1,17 @@
-package dev.andrylat.banking.dialog;
+package dev.andrylat.banking.operation;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CardNumberProcessorTest {
+class CreditCardValidationTest {
 
-    CardNumberProcessor processor;
+    CreditCardValidation processor;
 
     @BeforeEach
     void createProcessor() {
-        processor = new CardNumberProcessor();
+        processor = new CreditCardValidation();
     }
 
     @Test
@@ -19,18 +19,10 @@ class CardNumberProcessorTest {
         String cardNumber = null;
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number should contain only digits\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -40,18 +32,10 @@ class CardNumberProcessorTest {
         String cardNumber = "";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number should contain only digits\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -61,18 +45,10 @@ class CardNumberProcessorTest {
         String cardNumber = "               ";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number should contain only digits\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -82,15 +58,9 @@ class CardNumberProcessorTest {
         String cardNumber = "1";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -100,18 +70,10 @@ class CardNumberProcessorTest {
         String cardNumber = "a";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number should contain only digits\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -121,18 +83,10 @@ class CardNumberProcessorTest {
         String cardNumber = "123abc456def3";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number should contain only digits" +
-                "\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number should contain only digits\n" +
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -142,15 +96,9 @@ class CardNumberProcessorTest {
         String cardNumber = "1234567890";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Card number's length should be 16 digits" +
-                "\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Card number's length should be 16 digits\n" +
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -160,12 +108,8 @@ class CardNumberProcessorTest {
         String cardNumber = "1234567890987654";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Control sum is invalid" +
-                "\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Control sum is invalid\n" +
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }
@@ -175,9 +119,7 @@ class CardNumberProcessorTest {
         String cardNumber = "0000000000000000";
         String expected = "Card number is invalid.\n" +
                 "Errors:\n" +
-                "-> " +
-                "Payment system cant be determined" +
-                "\n";
+                "-> Payment system cant be determined\n";
         String actual = processor.returnResult(cardNumber);
         assertEquals(expected, actual);
     }

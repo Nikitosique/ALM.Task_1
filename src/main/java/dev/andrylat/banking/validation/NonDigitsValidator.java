@@ -12,13 +12,13 @@ public class NonDigitsValidator implements CardValidator {
 
     @Override
     public List<String> validate(String cardNumber) {
-        List<String> failureMessage = new ArrayList<>();
+        List<String> failureMessages = new ArrayList<>();
 
         if (StringUtils.isBlank(cardNumber) || !cardNumber.matches(DIGITS_REGEX)) {
-            failureMessage.add(MESSAGE);
+            failureMessages.add(MESSAGE);
         }
 
-        return failureMessage;
+        return failureMessages;
     }
 
 }

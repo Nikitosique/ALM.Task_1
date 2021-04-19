@@ -1,7 +1,7 @@
 package dev.andrylat.banking.validation;
 
 import dev.andrylat.banking.paymentsystem.PaymentSystem;
-import dev.andrylat.banking.paymentsystem.PaymentSystemChecker;
+import dev.andrylat.banking.paymentsystem.PaymentSystemRetriever;
 import org.junit.platform.commons.util.StringUtils;
 
 import java.util.ArrayList;
@@ -13,20 +13,20 @@ public class PaymentSystemValidator implements CardValidator {
 
     @Override
     public List<String> validate(String cardNumber) {
-        List<String> failureMessage = new ArrayList<>();
+        List<String> failureMessages = new ArrayList<>();
 
         if (StringUtils.isBlank(cardNumber)) {
-            failureMessage.add(MESSAGE);
-            return failureMessage;
+            failureMessages.add(MESSAGE);
+            return failureMessages;
         }
 
-        PaymentSystemChecker checker = new PaymentSystemChecker();
-        String paymentSystem = checker.checkPaymentSystem(cardNumber);
-        if (PaymentSystem.UNKNOWN.getName().equals(paymentSystem)) {
-            failureMessage.add(MESSAGE);
-            return failureMessage;
+        PaymentSystemRetriever retriever = new PaymentSystemRetriever();
+        PaymentSystem system = retriever.retrievePaymentSystem(cardNumber);
+        if (PaymentSystem.UNKNOWN.equals(system)) {
+            failureMessages.add(MESSAGE);
+            return failureMessages;
         }
 
-        return failureMessage;
+        return failureMessages;
     }
 }

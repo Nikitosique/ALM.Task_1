@@ -11,19 +11,25 @@ public class LuhnValidator implements CardValidator {
 
     @Override
     public List<String> validate(String cardNumber) {
-        List<String> failureMessage = new ArrayList<>();
+        List<String> failureMessages = new ArrayList<>();
 
-        if (StringUtils.isBlank(cardNumber)) {
-            failureMessage.add(MESSAGE);
-            return failureMessage;
+        if (StringUtils.isBlank(cardNumber) || !checkControlSum(cardNumber)) {
+            failureMessages.add(MESSAGE);
+            return failureMessages;
         }
 
+        return failureMessages;
+    }
+
+    public boolean checkControlSum(String cardNumber) {
         int[] cardNumberArray = new int[cardNumber.length()];
+        int temp = 0;
+        int controlSum = 0;
+
         for (int i = 0; i < cardNumber.length(); i++) {
             cardNumberArray[i] = Character.getNumericValue(cardNumber.charAt(i));
         }
-        int temp = 0;
-        int controlSum = 0;
+
         for (int i = 0; i < cardNumberArray.length; i++) {
             if (i % 2 == 0) {
                 temp = cardNumberArray[i] * 2;
@@ -33,12 +39,8 @@ public class LuhnValidator implements CardValidator {
                 controlSum = controlSum + cardNumberArray[i];
             }
         }
-        if (controlSum % 10 != 0) {
-            failureMessage.add(MESSAGE);
-            return failureMessage;
-        }
 
-        return failureMessage;
+        return controlSum % 10 == 0;
     }
 
 }

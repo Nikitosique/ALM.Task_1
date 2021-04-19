@@ -13,18 +13,18 @@ public class LengthValidator implements CardValidator {
 
     @Override
     public List<String> validate(String cardNumber) {
-        List<String> failureMessage = new ArrayList<>();
+        List<String> failureMessages = new ArrayList<>();
 
         if (StringUtils.isBlank(cardNumber)) {
-            failureMessage.add(MESSAGE);
-            return failureMessage;
+            failureMessages.add(MESSAGE);
+            return failureMessages;
         }
 
         String cardNumberWithoutNonDigits = cardNumber.replaceAll(NON_DIGITS_REGEX, "");
         if (cardNumberWithoutNonDigits.length() != ALLOWED_LENGTH) {
-            failureMessage.add(MESSAGE);
+            failureMessages.add(MESSAGE);
         }
 
-        return failureMessage;
+        return failureMessages;
     }
 }

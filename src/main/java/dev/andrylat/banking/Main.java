@@ -1,14 +1,14 @@
 package dev.andrylat.banking;
 
 
-import dev.andrylat.banking.dialog.CardNumberProcessor;
-import dev.andrylat.banking.dialog.Dialog;
+import dev.andrylat.banking.operation.CreditCardValidation;
+import dev.andrylat.banking.operation.Operation;
 
 public class Main {
 
     public static void main(String[] args) {
-        Dialog start = new CardNumberProcessor();
-        start.perform();
+        Operation creditCardValidation = new CreditCardValidation();
+        creditCardValidation.perform();
     }
 
 }

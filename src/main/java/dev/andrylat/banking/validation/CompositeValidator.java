@@ -8,7 +8,7 @@ public class CompositeValidator implements CardValidator {
     @Override
     public List<String> validate(String cardNumber) {
         List<String> failureMessages = new ArrayList<>();
-        ValidatorsCollector collector = new ValidatorsCollector();
+        ValidatorsList collector = new ValidatorsList();
 
         List<CardValidator> validatorsList = collector.getCardNumberValidators();
         for (CardValidator validator : validatorsList) {
