@@ -24,7 +24,7 @@ class CompositeCardValidatorTest {
         expected.add("Card number should contain only digits");
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -36,7 +36,7 @@ class CompositeCardValidatorTest {
         expected.add("Card number should contain only digits");
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -48,7 +48,7 @@ class CompositeCardValidatorTest {
         expected.add("Card number should contain only digits");
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -59,7 +59,7 @@ class CompositeCardValidatorTest {
         List<String> expected = new ArrayList<>();
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -71,7 +71,7 @@ class CompositeCardValidatorTest {
         expected.add("Card number should contain only digits");
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -83,7 +83,7 @@ class CompositeCardValidatorTest {
         expected.add("Card number should contain only digits");
         expected.add("Card number's length should be 16 digits");
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -93,7 +93,7 @@ class CompositeCardValidatorTest {
         String cardNumber = "1111111111111111";
         List<String> expected = new ArrayList<>();
         expected.add("Control sum is invalid");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -103,7 +103,7 @@ class CompositeCardValidatorTest {
         String cardNumber = "0000000000";
         List<String> expected = new ArrayList<>();
         expected.add("Card number's length should be 16 digits");
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -112,7 +112,7 @@ class CompositeCardValidatorTest {
     public void validate_ReturnListWithFailureMessages_CardNumberIsDigitsWithInvalidPaymentSystem() {
         String cardNumber = "0000000000000000";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }

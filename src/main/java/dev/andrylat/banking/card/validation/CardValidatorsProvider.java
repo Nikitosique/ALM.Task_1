@@ -3,7 +3,7 @@ package dev.andrylat.banking.card.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardValidatorsStorage {
+public class CardValidatorsProvider {
 
     private static final List<CardValidator> validators = new ArrayList<>(List.of(
             new NonDigitsValidator(),
@@ -12,7 +12,7 @@ public class CardValidatorsStorage {
             new PaymentSystemValidator()
     ));
 
-    public List<CardValidator> getCardNumberValidators() {
+    List<CardValidator> getCardNumberValidators() {
         return validators;
     }
 

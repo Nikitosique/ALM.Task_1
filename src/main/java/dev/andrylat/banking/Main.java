@@ -1,6 +1,6 @@
 package dev.andrylat.banking;
 
-import dev.andrylat.banking.operationselector.Menu;
+import dev.andrylat.banking.menu.Menu;
 
 public class Main {
 

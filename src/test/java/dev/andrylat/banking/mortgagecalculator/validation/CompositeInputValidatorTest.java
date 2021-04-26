@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CompositeInputValidatorTest {
 
     CompositeInputValidator validator;
-    InputDataStorage inputData;
+    InputData inputData;
 
     @BeforeEach
     void createValidator() {
         validator = new CompositeInputValidator();
-        inputData = new InputDataStorage();
+        inputData = new InputData();
     }
 
     @Test

@@ -1,4 +1,4 @@
-package dev.andrylat.banking.mortgagecalculator.utilityclasses;
+package dev.andrylat.banking.utils;
 
 public final class CommasReplacer {
 

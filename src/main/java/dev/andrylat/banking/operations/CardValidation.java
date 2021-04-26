@@ -1,10 +1,10 @@
-package dev.andrylat.banking.operationselector;
+package dev.andrylat.banking.operations;
 
 import dev.andrylat.banking.card.messageformatter.FailureMessageFormatter;
 import dev.andrylat.banking.card.messageformatter.MessageFormatter;
 import dev.andrylat.banking.card.messageformatter.PaymentSystemInfoFormatter;
 import dev.andrylat.banking.card.paymentsystem.PaymentSystem;
-import dev.andrylat.banking.card.paymentsystem.PaymentSystemRetriever;
+import dev.andrylat.banking.card.paymentsystem.PaymentSystemResolver;
 import dev.andrylat.banking.card.validation.CardValidator;
 import dev.andrylat.banking.card.validation.CompositeCardValidator;
 
@@ -15,20 +15,20 @@ public class CardValidation implements Operation {
 
     @Override
     public void startOperation() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Please, enter card number:");
-            String cardNumber = scanner.nextLine();
-            System.out.println(returnResult(cardNumber));
-        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please, enter card number:");
+        String cardNumber = scanner.nextLine();
+        System.out.println(getResult(cardNumber));
     }
 
-    public String returnResult(String cardNumber) {
+
+    public String getResult(String cardNumber) {
         CardValidator validator = new CompositeCardValidator();
         List<String> failureMessages = validator.validate(cardNumber);
 
         if (failureMessages.isEmpty()) {
-            PaymentSystemRetriever retriever = new PaymentSystemRetriever();
-            PaymentSystem system = retriever.retrievePaymentSystem(cardNumber);
+            PaymentSystemResolver resolver = new PaymentSystemResolver();
+            PaymentSystem system = resolver.resolvePaymentSystem(cardNumber);
 
             String paymentSystemName = system.getName();
             MessageFormatter<String> formatter = new PaymentSystemInfoFormatter();

@@ -1,6 +1,6 @@
 package dev.andrylat.banking.mortgagecalculator.calculator;
 
-import dev.andrylat.banking.mortgagecalculator.validation.InputDataStorage;
+import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MonthlyPaymentCalculatorTest {
 
     MonthlyPaymentCalculator calculator;
-    InputDataStorage inputData;
+    InputData inputData;
 
     @BeforeEach
     void createValidator() {
         calculator = new MonthlyPaymentCalculator();
-        inputData = new InputDataStorage();
+        inputData = new InputData();
     }
 
     @Test

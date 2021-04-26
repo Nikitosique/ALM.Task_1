@@ -1,7 +1,7 @@
 package dev.andrylat.banking.mortgagecalculator.calculator;
 
-import dev.andrylat.banking.mortgagecalculator.validation.InputDataStorage;
+import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 
 public interface Calculator<T> {
-    T calculate(InputDataStorage storage);
+    T calculate(InputData inputData);
 }

@@ -8,9 +8,9 @@ public class CompositeCardValidator implements CardValidator {
     @Override
     public List<String> validate(String cardNumber) {
         List<String> failureMessages = new ArrayList<>();
-        CardValidatorsStorage storage = new CardValidatorsStorage();
+        CardValidatorsProvider provider = new CardValidatorsProvider();
 
-        List<CardValidator> validatorsList = storage.getCardNumberValidators();
+        List<CardValidator> validatorsList = provider.getCardNumberValidators();
         for (CardValidator validator : validatorsList) {
             if (!validator.validate(cardNumber).isEmpty()) {
                 failureMessages.addAll(validator.validate(cardNumber));

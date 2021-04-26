@@ -1,15 +1,15 @@
 package dev.andrylat.banking.card.validation;
 
 import dev.andrylat.banking.card.paymentsystem.PaymentSystem;
-import dev.andrylat.banking.card.paymentsystem.PaymentSystemRetriever;
-import org.junit.platform.commons.util.StringUtils;
+import dev.andrylat.banking.card.paymentsystem.PaymentSystemResolver;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentSystemValidator implements CardValidator {
 
-    private static final String MESSAGE = "Payment system cant be determined";
+    private static final String MESSAGE = "Payment system can't be determined";
 
     @Override
     public List<String> validate(String cardNumber) {
@@ -20,8 +20,8 @@ public class PaymentSystemValidator implements CardValidator {
             return failureMessages;
         }
 
-        PaymentSystemRetriever retriever = new PaymentSystemRetriever();
-        PaymentSystem system = retriever.retrievePaymentSystem(cardNumber);
+        PaymentSystemResolver resolver = new PaymentSystemResolver();
+        PaymentSystem system = resolver.resolvePaymentSystem(cardNumber);
         if (PaymentSystem.UNKNOWN.equals(system)) {
             failureMessages.add(MESSAGE);
             return failureMessages;
@@ -29,4 +29,5 @@ public class PaymentSystemValidator implements CardValidator {
 
         return failureMessages;
     }
+
 }

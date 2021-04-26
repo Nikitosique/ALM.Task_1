@@ -6,4 +6,5 @@ public class PaymentSystemInfoFormatter implements MessageFormatter<String> {
     public String formatMessage(String message) {
         return "Card is valid. Payment system is \"" + message + "\".";
     }
+
 }

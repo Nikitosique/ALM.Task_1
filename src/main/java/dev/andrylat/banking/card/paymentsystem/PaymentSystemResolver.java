@@ -1,8 +1,8 @@
 package dev.andrylat.banking.card.paymentsystem;
 
-public class PaymentSystemRetriever {
+public class PaymentSystemResolver {
 
-    public PaymentSystem retrievePaymentSystem(String cardNumber) {
+    public PaymentSystem resolvePaymentSystem(String cardNumber) {
         for (PaymentSystem system : PaymentSystem.values()) {
             if (cardNumber.matches(system.getRegex())) {
                 return system;

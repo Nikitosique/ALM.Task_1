@@ -1,6 +1,6 @@
 package dev.andrylat.banking.card.validation;
 
-import org.junit.platform.commons.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class LuhnValidator implements CardValidator {
         return failureMessages;
     }
 
-    public boolean checkControlSum(String cardNumber) {
+    private boolean checkControlSum(String cardNumber) {
         int[] cardNumberArray = new int[cardNumber.length()];
         int temp = 0;
         int controlSum = 0;

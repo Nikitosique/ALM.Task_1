@@ -21,7 +21,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsNull() {
         String cardNumber = null;
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -30,7 +30,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsEmpty() {
         String cardNumber = "";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -39,7 +39,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsWhitespaces() {
         String cardNumber = "          ";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -48,7 +48,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsOneDigit() {
         String cardNumber = "1";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -57,7 +57,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsOneNonDigit() {
         String cardNumber = "a";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -66,7 +66,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberIsDigitsAndNonDigits() {
         String cardNumber = "1234abc567def";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }
@@ -75,7 +75,7 @@ class PaymentSystemValidatorTest {
     public void validate_ReturnListWithFailureMessage_CardNumberHasInvalidPaymentSystem() {
         String cardNumber = "0000000000000000";
         List<String> expected = new ArrayList<>();
-        expected.add("Payment system cant be determined");
+        expected.add("Payment system can't be determined");
         List<String> actual = validator.validate(cardNumber);
         assertEquals(expected, actual);
     }

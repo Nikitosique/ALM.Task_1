@@ -1,6 +1,6 @@
-package dev.andrylat.banking.operationselector;
+package dev.andrylat.banking.operations;
 
-import dev.andrylat.banking.mortgagecalculator.validation.InputDataStorage;
+import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,16 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MortgageCalculationTest {
 
     MortgageCalculation calculation;
-    InputDataStorage inputData;
+    InputData inputData;
 
     @BeforeEach
     void createCalculation() {
         calculation = new MortgageCalculation();
-        inputData = new InputDataStorage();
+        inputData = new InputData();
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreNull() {
+    void getResult_returnErrorMessages_AllParametersAreNull() {
         inputData.setLoanAmount(null);
         inputData.setInterestRate(null);
         inputData.setTermYears(null);
@@ -29,12 +29,12 @@ class MortgageCalculationTest {
                 "-> Interest rate: you should enter only numbers\n" +
                 "-> Loan term: you should enter only integers\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreEmpty() {
+    void getResult_returnErrorMessages_AllParametersAreEmpty() {
         inputData.setLoanAmount("");
         inputData.setInterestRate("");
         inputData.setTermYears("");
@@ -45,12 +45,12 @@ class MortgageCalculationTest {
                 "-> Interest rate: you should enter only numbers\n" +
                 "-> Loan term: you should enter only integers\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreWhitespaces() {
+    void getResult_returnErrorMessages_AllParametersAreWhitespaces() {
         inputData.setLoanAmount("            ");
         inputData.setInterestRate("           ");
         inputData.setTermYears("           ");
@@ -61,17 +61,17 @@ class MortgageCalculationTest {
                 "-> Interest rate: you should enter only numbers\n" +
                 "-> Loan term: you should enter only integers\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnCalculatedData_AllParametersAreOneDigit() {
+    void getResult_returnCalculatedData_AllParametersAreOneDigit() {
         inputData.setLoanAmount("9");
         inputData.setInterestRate("9");
         inputData.setTermYears("1");
 
-        String expected = "\nMonthly payment value is 0.79 USD\n\n" +
+        String expected = "\nMonthly payment value is 0,79 USD\n\n" +
                 "Amortization table\n" +
                 "--------------------------------------------\n" +
                 "Month       Interest    Principal   Balance    \n" +
@@ -88,12 +88,12 @@ class MortgageCalculationTest {
                 "11          0,01        0,78        0,75        \n" +
                 "12          0,01        0,78        0           \n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreOneNonDigit() {
+    void getResult_returnErrorMessages_AllParametersAreOneNonDigit() {
         inputData.setLoanAmount("a");
         inputData.setInterestRate("a");
         inputData.setTermYears("a");
@@ -104,12 +104,12 @@ class MortgageCalculationTest {
                 "-> Interest rate: you should enter only numbers\n" +
                 "-> Loan term: you should enter only integers\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreDigitsAndNonDigits() {
+    void getResult_returnErrorMessages_AllParametersAreDigitsAndNonDigits() {
         inputData.setLoanAmount("123abc");
         inputData.setInterestRate("123abc");
         inputData.setTermYears("123abc");
@@ -120,12 +120,12 @@ class MortgageCalculationTest {
                 "-> Interest rate: you should enter only numbers\n" +
                 "-> Loan term: you should enter only integers\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnErrorMessages_AllParametersAreOutOfCorrectRange() {
+    void getResult_returnErrorMessages_AllParametersAreOutOfCorrectRange() {
         inputData.setLoanAmount("-1000");
         inputData.setInterestRate("-1000");
         inputData.setTermYears("-1000");
@@ -134,19 +134,19 @@ class MortgageCalculationTest {
                 "Errors:\n" +
                 "-> Loan Amount: this value is less than the minimum (1 USD)\n" +
                 "-> Interest rate: this value is out of range [0% - 100%]\n" +
-                "-> Loan term: this value is out of correct range [1 year - 30 years]\n";
+                "-> Loan term: this value is out of range [1 year - 30 years]\n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
 
     @Test
-    void returnResult_returnCalculatedData_AllParametersAreCorrect() {
+    void getResult_returnCalculatedData_AllParametersAreCorrect() {
         inputData.setLoanAmount("100000");
         inputData.setInterestRate("10");
         inputData.setTermYears("1");
 
-        String expected = "\nMonthly payment value is 8791.59 USD\n" + "\n" +
+        String expected = "\nMonthly payment value is 8791,59 USD\n" + "\n" +
                 "Amortization table\n" +
                 "--------------------------------------------\n" +
                 "Month       Interest    Principal   Balance    \n" +
@@ -163,9 +163,8 @@ class MortgageCalculationTest {
                 "11          144,71      8646,88     8718,92     \n" +
                 "12          72,66       8718,93     0           \n";
 
-        String actual = calculation.returnResult(inputData);
+        String actual = calculation.getResult(inputData);
         assertEquals(expected, actual);
     }
-
 
 }

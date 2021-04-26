@@ -3,7 +3,7 @@ package dev.andrylat.banking.mortgagecalculator.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputValidatorsStorage {
+public class InputValidatorsProvider {
 
     private static final List<InputValidator> validators = new ArrayList<>(List.of(
             new LoanAmountValidator(),
@@ -11,7 +11,7 @@ public class InputValidatorsStorage {
             new TermYearsValidator()
     ));
 
-    public List<InputValidator> getInputValidators() {
+    List<InputValidator> getInputValidators() {
         return validators;
     }
 

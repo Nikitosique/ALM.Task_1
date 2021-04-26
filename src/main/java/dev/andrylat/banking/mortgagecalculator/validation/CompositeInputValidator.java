@@ -6,11 +6,11 @@ import java.util.List;
 public class CompositeInputValidator implements InputValidator {
 
     @Override
-    public List<String> validate(InputDataStorage inputData) {
+    public List<String> validate(InputData inputData) {
         List<String> failureMessages = new ArrayList<>();
-        InputValidatorsStorage validatorsStorage = new InputValidatorsStorage();
+        InputValidatorsProvider validatorsProvider = new InputValidatorsProvider();
 
-        List<InputValidator> validatorList = validatorsStorage.getInputValidators();
+        List<InputValidator> validatorList = validatorsProvider.getInputValidators();
         for (InputValidator validator : validatorList) {
             if (!validator.validate(inputData).isEmpty()) {
                 failureMessages.addAll(validator.validate(inputData));

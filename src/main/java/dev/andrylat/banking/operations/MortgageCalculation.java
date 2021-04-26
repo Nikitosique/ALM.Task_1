@@ -1,16 +1,17 @@
-package dev.andrylat.banking.operationselector;
+package dev.andrylat.banking.operations;
 
 import dev.andrylat.banking.mortgagecalculator.calculator.Calculator;
 import dev.andrylat.banking.mortgagecalculator.calculator.LoanAmortizationCalculator;
 import dev.andrylat.banking.mortgagecalculator.calculator.MonthlyPaymentCalculator;
+import dev.andrylat.banking.mortgagecalculator.calculator.ResultData;
 import dev.andrylat.banking.mortgagecalculator.messageformatter.FailureMessageFormatter;
 import dev.andrylat.banking.mortgagecalculator.messageformatter.LoanAmortizationInfoFormatter;
 import dev.andrylat.banking.mortgagecalculator.messageformatter.MessageFormatter;
 import dev.andrylat.banking.mortgagecalculator.messageformatter.MonthlyPaymentInfoFormatter;
-import dev.andrylat.banking.mortgagecalculator.utilityclasses.CommasReplacer;
 import dev.andrylat.banking.mortgagecalculator.validation.CompositeInputValidator;
-import dev.andrylat.banking.mortgagecalculator.validation.InputDataStorage;
+import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 import dev.andrylat.banking.mortgagecalculator.validation.InputValidator;
+import dev.andrylat.banking.utils.CommasReplacer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,29 +20,28 @@ public class MortgageCalculation implements Operation {
 
     @Override
     public void startOperation() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            InputDataStorage inputData = new InputDataStorage();
+        Scanner scanner = new Scanner(System.in);
+        InputData inputData = new InputData();
 
-            System.out.println("Please, enter loan amount (USD):");
-            String loanAmount = scanner.nextLine();
-            loanAmount = CommasReplacer.replace(loanAmount);
-            inputData.setLoanAmount(loanAmount);
+        System.out.println("Please, enter loan amount (USD):");
+        String loanAmount = scanner.nextLine();
+        loanAmount = CommasReplacer.replace(loanAmount);
+        inputData.setLoanAmount(loanAmount);
 
-            System.out.println("Please, enter interest rate value (Percents):");
-            String interestRate = scanner.nextLine();
-            interestRate = CommasReplacer.replace(interestRate);
-            inputData.setInterestRate(interestRate);
+        System.out.println("Please, enter interest rate value (Percents):");
+        String interestRate = scanner.nextLine();
+        interestRate = CommasReplacer.replace(interestRate);
+        inputData.setInterestRate(interestRate);
 
-            System.out.println("Please, enter loan term (Years):");
-            String termYears = scanner.nextLine();
-            termYears = CommasReplacer.replace(termYears);
-            inputData.setTermYears(termYears);
+        System.out.println("Please, enter loan term (Years):");
+        String termYears = scanner.nextLine();
+        termYears = CommasReplacer.replace(termYears);
+        inputData.setTermYears(termYears);
 
-            System.out.println(returnResult(inputData));
-        }
+        System.out.println(getResult(inputData));
     }
 
-    public String returnResult(InputDataStorage inputData) {
+    public String getResult(InputData inputData) {
         InputValidator validator = new CompositeInputValidator();
         List<String> failureMessages = validator.validate(inputData);
 
@@ -53,7 +53,7 @@ public class MortgageCalculation implements Operation {
         }
     }
 
-    public String performCalculation(InputDataStorage inputData) {
+    private String performCalculation(InputData inputData) {
         StringBuilder result = new StringBuilder();
 
         Calculator<Double> monthlyPaymentCalculator = new MonthlyPaymentCalculator();
@@ -61,9 +61,9 @@ public class MortgageCalculation implements Operation {
         MessageFormatter<Double> monthlyPaymentInfoFormatter = new MonthlyPaymentInfoFormatter();
         result.append(monthlyPaymentInfoFormatter.formatMessage(monthlyPayment));
 
-        Calculator<List<Double>> loanAmortizationCalculator = new LoanAmortizationCalculator();
-        List<Double> loanAmortizationData = loanAmortizationCalculator.calculate(inputData);
-        MessageFormatter<List<Double>> loanAmortizationFormatter = new LoanAmortizationInfoFormatter();
+        Calculator<List<ResultData>> loanAmortizationCalculator = new LoanAmortizationCalculator();
+        List<ResultData> loanAmortizationData = loanAmortizationCalculator.calculate(inputData);
+        MessageFormatter<List<ResultData>> loanAmortizationFormatter = new LoanAmortizationInfoFormatter();
         result.append(loanAmortizationFormatter.formatMessage(loanAmortizationData));
 
         return result.toString();

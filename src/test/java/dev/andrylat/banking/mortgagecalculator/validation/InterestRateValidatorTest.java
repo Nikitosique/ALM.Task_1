@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class InterestRateValidatorTest {
 
     InterestRateValidator validator;
-    InputDataStorage inputData;
+    InputData inputData;
 
     @BeforeEach
     void createValidator() {
         validator = new InterestRateValidator();
-        inputData = new InputDataStorage();
+        inputData = new InputData();
     }
 
     @Test

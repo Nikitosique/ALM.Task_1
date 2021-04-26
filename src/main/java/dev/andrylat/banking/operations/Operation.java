@@ -1,4 +1,4 @@
-package dev.andrylat.banking.operationselector;
+package dev.andrylat.banking.operations;
 
 public interface Operation {
     void startOperation();

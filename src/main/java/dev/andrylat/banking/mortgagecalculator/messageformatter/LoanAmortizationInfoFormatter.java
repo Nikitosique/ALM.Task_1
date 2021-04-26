@@ -1,40 +1,34 @@
 package dev.andrylat.banking.mortgagecalculator.messageformatter;
 
+import dev.andrylat.banking.mortgagecalculator.calculator.ResultData;
+
 import java.text.DecimalFormat;
-import java.util.Formatter;
 import java.util.List;
 
-public class LoanAmortizationInfoFormatter implements MessageFormatter<List<Double>> {
-
-    private static final int COLUMNS_NUMBER = 4;
+public class LoanAmortizationInfoFormatter implements MessageFormatter<List<ResultData>> {
 
     @Override
-    public String formatMessage(List<Double> dataList) {
+    public String formatMessage(List<ResultData> resultData) {
         StringBuilder result = new StringBuilder();
-        Formatter header = new Formatter();
 
         result.append("\nAmortization table\n");
         result.append("--------------------------------------------\n");
-        header.format("%-11s %-11s %-11s %-11s\n", "Month", "Interest", "Principal", "Balance");
-        result.append(header);
+        result.append(String.format("%-11s %-11s %-11s %-11s\n", "Month", "Interest", "Principal", "Balance"));
 
-        int columnsCounter = 0;
-        DecimalFormat dataFormat = new DecimalFormat("0.##");
-
-        for (Double data : dataList) {
-            Formatter line = new Formatter();
-            line.format("%-11s ", dataFormat.format(data));
-            result.append(line);
-
-            ++columnsCounter;
-
-            if (columnsCounter == COLUMNS_NUMBER) {
-                result.append("\n");
-                columnsCounter = 0;
-            }
+        for (ResultData data : resultData) {
+            result.append(formatCell(data.getMonth()));
+            result.append(formatCell(data.getInterest()));
+            result.append(formatCell(data.getPrincipal()));
+            result.append(formatCell(data.getBalance()));
+            result.append("\n");
         }
 
         return result.toString();
+    }
+
+    private String formatCell(Number dataCell) {
+        DecimalFormat dataFormat = new DecimalFormat("0.##");
+        return String.format("%-11s ", dataFormat.format(dataCell));
     }
 
 }

@@ -1,6 +1,6 @@
 package dev.andrylat.banking.mortgagecalculator.validation;
 
-public class InputDataStorage {
+public class InputData {
 
     private String loanAmount;
     private String interestRate;
