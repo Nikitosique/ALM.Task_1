@@ -1,4 +1,4 @@
-package dev.andrylat.banking.operations;
+package dev.andrylat.banking.menu.operations;
 
 import dev.andrylat.banking.card.messageformatter.FailureMessageFormatter;
 import dev.andrylat.banking.card.messageformatter.MessageFormatter;
@@ -7,6 +7,7 @@ import dev.andrylat.banking.card.paymentsystem.PaymentSystem;
 import dev.andrylat.banking.card.paymentsystem.PaymentSystemResolver;
 import dev.andrylat.banking.card.validation.CardValidator;
 import dev.andrylat.banking.card.validation.CompositeCardValidator;
+import org.apache.commons.io.input.CloseShieldInputStream;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,13 +15,13 @@ import java.util.Scanner;
 public class CardValidation implements Operation {
 
     @Override
-    public void startOperation() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please, enter card number:");
-        String cardNumber = scanner.nextLine();
-        System.out.println(getResult(cardNumber));
+    public void start() {
+        try (Scanner scanner = new Scanner(new CloseShieldInputStream(System.in))) {
+            System.out.println("Please, enter card number:");
+            String cardNumber = scanner.nextLine();
+            System.out.println(getResult(cardNumber));
+        }
     }
-
 
     public String getResult(String cardNumber) {
         CardValidator validator = new CompositeCardValidator();

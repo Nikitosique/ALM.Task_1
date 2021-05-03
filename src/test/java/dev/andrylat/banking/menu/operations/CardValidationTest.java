@@ -1,4 +1,4 @@
-package dev.andrylat.banking.operations;
+package dev.andrylat.banking.menu.operations;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

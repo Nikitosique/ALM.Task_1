@@ -1,4 +1,4 @@
-package dev.andrylat.banking.operations;
+package dev.andrylat.banking.menu.operations;
 
 import dev.andrylat.banking.mortgagecalculator.calculator.Calculator;
 import dev.andrylat.banking.mortgagecalculator.calculator.LoanAmortizationCalculator;
@@ -11,7 +11,8 @@ import dev.andrylat.banking.mortgagecalculator.messageformatter.MonthlyPaymentIn
 import dev.andrylat.banking.mortgagecalculator.validation.CompositeInputValidator;
 import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 import dev.andrylat.banking.mortgagecalculator.validation.InputValidator;
-import dev.andrylat.banking.utils.CommasReplacer;
+import dev.andrylat.banking.utils.StringUtils;
+import org.apache.commons.io.input.CloseShieldInputStream;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,26 +20,27 @@ import java.util.Scanner;
 public class MortgageCalculation implements Operation {
 
     @Override
-    public void startOperation() {
-        Scanner scanner = new Scanner(System.in);
-        InputData inputData = new InputData();
+    public void start() {
+        try (Scanner scanner = new Scanner(new CloseShieldInputStream(System.in))) {
+            InputData inputData = new InputData();
 
-        System.out.println("Please, enter loan amount (USD):");
-        String loanAmount = scanner.nextLine();
-        loanAmount = CommasReplacer.replace(loanAmount);
-        inputData.setLoanAmount(loanAmount);
+            System.out.println("Please, enter loan amount (USD):");
+            String loanAmount = scanner.nextLine();
+            loanAmount = StringUtils.replaceCommas(loanAmount);
+            inputData.setLoanAmount(loanAmount);
 
-        System.out.println("Please, enter interest rate value (Percents):");
-        String interestRate = scanner.nextLine();
-        interestRate = CommasReplacer.replace(interestRate);
-        inputData.setInterestRate(interestRate);
+            System.out.println("Please, enter interest rate value (Percents):");
+            String interestRate = scanner.nextLine();
+            interestRate = StringUtils.replaceCommas(interestRate);
+            inputData.setInterestRate(interestRate);
 
-        System.out.println("Please, enter loan term (Years):");
-        String termYears = scanner.nextLine();
-        termYears = CommasReplacer.replace(termYears);
-        inputData.setTermYears(termYears);
+            System.out.println("Please, enter loan term (Years):");
+            String termYears = scanner.nextLine();
+            termYears = StringUtils.replaceCommas(termYears);
+            inputData.setTermYears(termYears);
 
-        System.out.println(getResult(inputData));
+            System.out.println(getResult(inputData));
+        }
     }
 
     public String getResult(InputData inputData) {

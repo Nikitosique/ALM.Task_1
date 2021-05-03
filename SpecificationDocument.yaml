@@ -1,0 +1,227 @@
+openapi: 3.0.0
+
+info:
+  title: OpenAPI Specification for Bank Application 
+  description: Specification Document for Cart Validation and Mortgage Calculation Application
+  version: 1.0.0
+
+externalDocs:
+  description: More info about application
+  url: https://github.com/Nikitosique/ALM.Task_1  
+  
+servers:
+  - url: http://{hostname}:{port}
+    description: Development server
+    variables:
+      hostname:
+        default: localhost
+      port:
+        enum: 
+          - '8090'
+          - '8080'
+        default: '8080'  
+        
+tags: 
+  - name: card
+    description: Card Validation Operations
+  - name: calculator
+    description: Mortgage Calculation Operations
+
+paths:
+  /cardvalidation:
+    summary: Credit card validation
+    description: Contains the list of operations on card validation and payment system resolving
+
+    post:
+      tags:
+        - card
+      summary: Getting credit card info
+      description: Resolving credit card's payment system or returning validation messages if card number is invalid
+      operationId: validateCard
+      requestBody:
+        description: Card number to process
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cardNumber'
+              
+      responses:
+        '200':
+          description: Payment system was succesfully resolved
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Validation and payment system info
+                properties:
+                  validationResult:
+                    type: boolean
+                    description: Card validation result
+                  validationMessages:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of validation messages
+                  paymentSystemName:
+                    type: string
+                    description: Payment system name
+                required: 
+                  - validationResult
+                  - validationMessages
+                  - paymentSystemName
+                example: 
+                  validationResult: true
+                  validationMessages: []
+                  paymentSystemName: 'VISA'
+        '400':
+          $ref: '#/components/responses/400ValidationFail'
+
+
+  /mortgagecalculation:
+    summary: Mortgage Calculation operations 
+    description: Contains the list of operations on mortgage calculation 
+    
+    post:
+      tags:
+        - calculator
+      summary: Getting mortgage data 
+      description: Calculating mortgage montlhy payment value and loan amortization data or returning validation messages if input data were invalid
+      operationId: calculatePayments
+      requestBody:
+        description: Input data for mortgage calculator
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calculationInputData'
+              
+      responses:
+        '200':
+          description: Mortgage data were succesfully calculated
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Validation data and calculated mortgage data
+                properties:
+                  validationResult:
+                    type: boolean
+                    description: Result of input data validation 
+                  validationMessages:
+                    type: array
+                    items:
+                      type: string
+                    description: Array of validation messages
+                  monthlyPayment:
+                    type: number
+                    format: 'double'
+                    description: Monthly payment value
+                  loanAmortizationData:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/dataPerMonth'
+                    description: Array of objects, each object contains loan amortization data for a specific month    
+                required: 
+                  - validationResult
+                  - validationMessages
+                  - monthlyPayment
+                  - loanAmortizationData
+                example: 
+                  validationResult: true
+                  validationMessages: []
+                  monthlyPayment: 599.89
+                  loanAmortizationData: [{month: 1, interest: 587.45, principal: 345.67, balance: 89.01}]
+        '400':
+          $ref: '#/components/responses/400ValidationFail'
+        
+                
+components:
+  schemas:
+    cardNumber:
+      type: object
+      description: Represents card number
+      properties:
+        cardNumber:
+          type: string
+      required: 
+        - cardNumber
+      example: 
+        cardNumber: "4455555555555555"
+    
+    calculationInputData:
+      type: object
+      description: Represents input data for mortgage calculator
+      properties:
+        loanAmount:
+          type: string
+          description: Loan amount value
+        interestRate:
+          type: string
+          description: Interest rate value
+        termYears:
+          type: string
+          description: Loan term in years
+      required: 
+         - loanAmount
+         - interestRate
+         - termYears
+      example: 
+        loanAmount: "100000"
+        interestRate: "6"
+        termYears: "15"
+        
+    dataPerMonth:
+      type: object
+      description: Contains loan amortization data for specific month
+      properties:
+        month:
+          type: integer
+          format: 'int32'
+          description: Number of month
+        interest:
+          type: number
+          format: 'double'
+          description: Interest payment value for specific month 
+        principal:
+          type: number
+          format: 'double'
+          description: Principal payment value for specific month
+        balance:
+          type: number
+          format: 'double'
+          description: Remaining unpaid loan amount
+      required: 
+        - month
+        - interest
+        - principal
+        - balance
+      example: 
+        month: 5
+        interest: 47.11
+        principal: 146.22
+        balance: 9276.15
+  
+  responses:
+    400ValidationFail:
+      description: Card number or mortgage input data are invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Validation info
+            properties:
+              validationResult:
+                type: boolean
+                description: Result of input data validation
+              validationMessages:
+                type: array
+                items:
+                  type: string
+                description: Array of validation messages
+            required: 
+              - validationResult
+              - validationMessages
+            example:   
+              validationResult: false
+              validationMessages: ['Message 1','Message 2']

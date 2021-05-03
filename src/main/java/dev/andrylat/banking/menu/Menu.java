@@ -1,8 +1,8 @@
 package dev.andrylat.banking.menu;
 
-import dev.andrylat.banking.operations.CardValidation;
-import dev.andrylat.banking.operations.MortgageCalculation;
-import dev.andrylat.banking.operations.Operation;
+import dev.andrylat.banking.menu.operations.CardValidation;
+import dev.andrylat.banking.menu.operations.MortgageCalculation;
+import dev.andrylat.banking.menu.operations.Operation;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -16,31 +16,31 @@ public class Menu {
 
     public void chooseOperation() {
         boolean isContinue;
-        Scanner scanner = new Scanner(System.in);
 
-        do {
-            isContinue = false;
+        try (Scanner scanner = new Scanner(System.in)) {
+            do {
+                isContinue = false;
 
-            try {
-                printMenu();
-                int choice = Integer.parseInt(scanner.nextLine());
+                try {
+                    printMenu();
+                    int choice = Integer.parseInt(scanner.nextLine());
 
-                Operation operation = menu.get(choice);
-                operation.startOperation();
+                    Operation operation = menu.get(choice);
+                    operation.start();
 
-                System.out.println("Do you want to continue? (Y/N)");
-                String decision = scanner.nextLine().toUpperCase().trim();
-                if ("Y".equals(decision)) {
+                    System.out.println("Do you want to continue? (Y/N)");
+                    String decision = scanner.nextLine().toUpperCase().trim();
+                    if ("Y".equals(decision)) {
+                        isContinue = true;
+                    }
+                } catch (NullPointerException | NumberFormatException exception) {
+                    System.out.println("Invalid option, try again!\n");
                     isContinue = true;
                 }
-            } catch (NullPointerException | NumberFormatException exception) {
-                System.out.println("Invalid option, try again!\n");
-                isContinue = true;
-            }
-        } while (isContinue);
+            } while (isContinue);
 
-        System.out.println("Goodbye!");
-        scanner.close();
+            System.out.println("Goodbye!");
+        }
     }
 
     private void printMenu() {

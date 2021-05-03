@@ -1,4 +1,4 @@
-package dev.andrylat.banking.operations;
+package dev.andrylat.banking.menu.operations;
 
 import dev.andrylat.banking.mortgagecalculator.validation.InputData;
 import org.junit.jupiter.api.BeforeEach;
