@@ -133,7 +133,7 @@ class MortgageCalculationTest {
         String expected = "Entered data is incorrect.\n" +
                 "Errors:\n" +
                 "-> Loan Amount: this value is less than the minimum (1 USD)\n" +
-                "-> Interest rate: this value is out of range [0% - 100%]\n" +
+                "-> Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)\n" +
                 "-> Loan term: this value is out of range [1 year - 30 years]\n";
 
         String actual = calculation.getResult(inputData);

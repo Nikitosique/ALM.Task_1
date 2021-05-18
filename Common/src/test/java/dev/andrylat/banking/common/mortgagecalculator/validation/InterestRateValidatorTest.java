@@ -108,7 +108,7 @@ class InterestRateValidatorTest {
     public void validate_ReturnListWithFailureMessage_InputIsNumberOutOfCorrectRange() {
         inputData.setInterestRate("10000");
         List<String> expected = new ArrayList<>();
-        expected.add("Interest rate: this value is out of range [0% - 100%]");
+        expected.add("Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)");
         List<String> actual = validator.validate(inputData);
         assertEquals(expected, actual);
     }

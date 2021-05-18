@@ -115,7 +115,7 @@ class CompositeInputValidatorTest {
 
         List<String> expected = new ArrayList<>();
         expected.add("Loan Amount: this value is less than the minimum (1 USD)");
-        expected.add("Interest rate: this value is out of range [0% - 100%]");
+        expected.add("Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)");
         expected.add("Loan term: this value is out of range [1 year - 30 years]");
 
         List<String> actual = validator.validate(inputData);
@@ -129,7 +129,7 @@ class CompositeInputValidatorTest {
         inputData.setTermYears("b");
 
         List<String> expected = new ArrayList<>();
-        expected.add("Interest rate: this value is out of range [0% - 100%]");
+        expected.add("Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)");
         expected.add("Loan term: you should enter only integers");
 
         List<String> actual = validator.validate(inputData);

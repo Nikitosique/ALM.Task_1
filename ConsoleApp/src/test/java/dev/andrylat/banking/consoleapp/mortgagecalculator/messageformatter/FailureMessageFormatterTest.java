@@ -47,13 +47,13 @@ class FailureMessageFormatterTest {
     public void formatMessage_ReturnFormattedMessage_InputListContainsThreeMessages() {
         List<String> inputMessages = new ArrayList<>();
         inputMessages.add("Loan Amount: this value is less than the minimum (1 USD)");
-        inputMessages.add("Interest rate: this value is out of range [0% - 100%]");
+        inputMessages.add("Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)");
         inputMessages.add("Loan term: this value is out of range [1 year - 30 years]");
 
         String expected = "Entered data is incorrect.\n" +
                 "Errors:\n" +
                 "-> Loan Amount: this value is less than the minimum (1 USD)\n" +
-                "-> Interest rate: this value is out of range [0% - 100%]\n" +
+                "-> Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)\n" +
                 "-> Loan term: this value is out of range [1 year - 30 years]\n";
         String actual = formatter.formatMessage(inputMessages);
         assertEquals(expected, actual);

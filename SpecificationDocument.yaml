@@ -105,7 +105,7 @@ paths:
                 $ref: "#/components/schemas/mortgageCalculatedData"
               example:
                 validation-result: false
-                validation-messages: ["Loan Amount: you should enter only numbers", "Interest rate: this value is out of range [0% - 100%]"]
+                validation-messages: ["Loan Amount: you should enter only numbers", "Interest rate: this value is out of range [0% - 100%] (Lower bound excluded)"]
 
 components:
   schemas:

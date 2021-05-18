@@ -80,11 +80,6 @@
             <groupId>com.brsanthu</groupId>
             <artifactId>migbase64</artifactId>
         </dependency>
-        <!-- Bean Validation API support -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
         <!-- Dependency on Common module -->
         <dependency>
             <groupId>dev.andrylat</groupId>
@@ -104,6 +99,7 @@
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -140,11 +136,6 @@
                     </httpConnector>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>javax.validation</groupId>
-                        <artifactId>validation-api</artifactId>
-                        <version>${beanvalidation-version}</version>
-                    </dependency>
                 </dependencies>
                 <executions>
                     <execution>
