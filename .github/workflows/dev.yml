@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - name: Set Locale
-        run: java -Duser.language=ru -Duser.country=UA    
+        run: java -Duser.language=fr -Duser.country=FR
       - name: Maven Package
         run: mvn -B clean package -DskipTests
       - name: Maven Verify
