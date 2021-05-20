@@ -15,6 +15,14 @@
         <module>WebService</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>ALM.Task_1</name>
+            <url>https://maven.pkg.github.com/Nikitosique/ALM.Task_1</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -25,6 +33,9 @@
         <jersey2-version>2.27</jersey2-version>
         <jackson-version>2.9.5</jackson-version>
         <beanvalidation-version>1.1.0.Final</beanvalidation-version>
+        <sonar.projectKey>Nikitosique_ALM.Task_1</sonar.projectKey>
+        <sonar.organization>nikitosique</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
@@ -34,6 +45,13 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>5.7.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.7.1</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -125,5 +143,52 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.sources>.</sonar.sources>
+                <sonar.inclusions>Common/src/main/java/**,src/main/resources/**</sonar.inclusions>
+                <sonar.inclusions>ConsoleApp/src/main/java/**,src/main/resources/**</sonar.inclusions>
+                <sonar.inclusions>WebService/src/main/java/io/swagger/api/impl/*</sonar.inclusions>
+                <sonar.projectKey>Nikitosique_ALM.Task_1</sonar.projectKey>
+                <sonar.organization>nikitosique</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.8.0.2131</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
