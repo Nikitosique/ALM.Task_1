@@ -5,6 +5,8 @@ import dev.andrylat.banking.consoleapp.menu.Menu;
 public class Main {
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.FRANCE);
+
         Menu menu = new Menu();
         menu.chooseOperation();
     }
