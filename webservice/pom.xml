@@ -27,8 +27,8 @@
         <repository>
             <uniqueVersion>false</uniqueVersion>
             <id>github</id>
-            <name>TestRepo</name>
-            <url>https://maven.pkg.github.com/Nikitosique/TestRepo</url>
+            <name>ALM.Task_1</name>
+            <url>https://maven.pkg.github.com/Nikitosique/ALM.Task_1</url>
         </repository>
     </distributionManagement>
 
