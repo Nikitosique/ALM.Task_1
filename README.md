@@ -10,7 +10,28 @@ Steps for building and running this app with Docker:
 
 ### How to test?
 
-Test with [Postman](https://www.postman.com/downloads/).
- 
-Requests and responses body examples are [here](https://app.swaggerhub.com/apis/MykytaDan/CVMC_API/1.0.0). 
-Webservise is available on your local machine via ` http://localhost:8000/ `
+1. Test with [Postman](https://www.postman.com/downloads/).
+
+2. For credit card validation execute ` POST ` request at url ` localhost:8080/cardnumber/validation `. 
+
+      Request body example:
+
+      `{`
+
+      `"card-number": "4455555555555555"`
+
+      `}`
+
+3. For mortgage calculation execute ` POST ` request at url ` localhost:8080/mortgage/calculation `.  
+
+      Request body example:
+
+      `{`
+      
+      `"loan-amount": "100000",`
+      
+      `"interest-rate": "6",`
+      
+      `"term-years": "15"`
+      
+      `}`
