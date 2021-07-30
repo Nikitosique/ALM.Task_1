@@ -1,6 +1,15 @@
 ## RESTful web-service for credit card validation and mortgage calculation
 ### [Detailed API info, requests/responses examples and more](https://app.swaggerhub.com/apis/MykytaDan/CVMC_API/1.0.0)
 
+### Used technologies
+- Java 8
+- Maven
+- Swagger
+- Jersey
+- JUnit
+- Docker
+- Github Actions
+
 ### How to build?
 Steps for building and running this app with Docker:
 
