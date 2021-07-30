@@ -4,21 +4,13 @@
 ### How to build?
 Steps for building and running this app with Docker:
 
-1. Clone this repository
-` git clone https://github.com/Nikitosique/ALM.Task_1.git `
+1. Pull Docker image: ` docker pull nikitosique/banking-app:latest `
 
-2. Go to project source directory
+2. Run Docker container: ` docker run -d -p 8080:8080 nikitosique/banking-app `
 
-3. Create Docker image 
-` docker build -t banking-web-service .`
+### How to test?
 
-4. Run Docker container
-` docker run -d -p 8080:8080 banking-web-service`
-
-5. Test with [Postman](https://www.postman.com/downloads/).
+Test with [Postman](https://www.postman.com/downloads/).
  
-   Requests and responses body examples are [here](https://app.swaggerhub.com/apis/MykytaDan/CVMC_API/1.0.0). 
-   Webservise is available on your local machine via ` http://localhost:8000/ `
-
-
-
+Requests and responses body examples are [here](https://app.swaggerhub.com/apis/MykytaDan/CVMC_API/1.0.0). 
+Webservise is available on your local machine via ` http://localhost:8000/ `
