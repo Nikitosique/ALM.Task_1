@@ -5,15 +5,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.andrylat</groupId>
-    <artifactId>CardValidator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>cardvalidator</artifactId>
+    <version>1.1</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>Common</module>
-        <module>ConsoleApp</module>
-        <module>WebService</module>
+        <module>common</module>
+        <module>consoleapp</module>
+        <module>webservice</module>
     </modules>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>github</id>
+            <name>ALM.Task_1</name>
+            <url>https://maven.pkg.github.com/Nikitosique/ALM.Task_1</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,6 +34,10 @@
         <jersey2-version>2.27</jersey2-version>
         <jackson-version>2.9.5</jackson-version>
         <beanvalidation-version>1.1.0.Final</beanvalidation-version>
+        <sonar.projectKey>Nikitosique_ALM.Task_1</sonar.projectKey>
+        <sonar.moduleKey>${artifactId}</sonar.moduleKey>
+        <sonar.organization>nikitosique</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
@@ -34,6 +47,13 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>5.7.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.7.1</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -111,19 +131,84 @@
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson-version}</version>
             </dependency>
+
             <!-- Base64 encoding that works in both JVM and Android in WebService module-->
             <dependency>
                 <groupId>com.brsanthu</groupId>
                 <artifactId>migbase64</artifactId>
                 <version>2.2</version>
             </dependency>
+
             <!-- Dependency on Common module -->
             <dependency>
                 <groupId>dev.andrylat</groupId>
-                <artifactId>Common</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <artifactId>common</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <!-- Dependency for testing with Sonar scanner -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.3.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M5</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.sources>.</sonar.sources>
+                <sonar.inclusions>**/src/main/java/*</sonar.inclusions>
+                <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
+                <sonar.organization>nikitosique</sonar.organization>
+                <sonar.moduleKey>${artifactId}</sonar.moduleKey>
+                <sonar.organization>nikitosique</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.8.0.2131</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
