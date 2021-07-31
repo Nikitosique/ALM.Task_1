@@ -1,4 +1,5 @@
 ## RESTful web-service for credit card validation and mortgage calculation
+### This project was developed under the guidance of [Andrii Latyshev](https://www.linkedin.com/in/andrylat/)
 ### [Detailed API info, requests/responses examples and more](https://app.swaggerhub.com/apis/MykytaDan/CVMC_API/1.0.0)
 
 ### Used technologies
